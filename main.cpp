@@ -1,15 +1,16 @@
 #include <iostream>
 #include "Car.h"
+#include "Board.h"
+#include "Game.h"
 #include <vector>
 #include <queue>
 #include <algorithm>
-
 using namespace std;
 
-Car *BFS(Car *initial,Car *goal, long long &examined, long long &mem)
+Game *BFS(Game *initial,Game *goal, long long &examined, long long &mem)
 {
-    queue<Car *> agenda;
-    vector <Car> closed;
+    queue<Game *> agenda;
+    vector <Game> closed;
 
     agenda.push(initial);
     examined=0;
@@ -18,15 +19,16 @@ Car *BFS(Car *initial,Car *goal, long long &examined, long long &mem)
     {
         if (agenda.size() + closed.size() > mem)
             mem = agenda.size() + closed.size();
-        Car *s = agenda.front();
+        Game *s = agenda.front();
         agenda.pop();
         if (find(closed.begin(), closed.end(), *s)==closed.end())
         {
             examined++;
             if (*s==*goal)
                 return s;
+          
             closed.push_back(*s);
-            vector<Car *> children =s->expand();
+            vector<Game *> children =s->expand();
             for (unsigned int i=0;i<children.size();i++)
             {
                 if (find(closed.begin(), closed.end(), *children[i])==closed.end())
@@ -37,19 +39,70 @@ Car *BFS(Car *initial,Car *goal, long long &examined, long long &mem)
     return nullptr;
 }
 
-int main() {
-  Car *a = new Car(1, 2, 'o');
-  Car *b = new Car(3, 5, 'v');
-  cout<<a->getID()<<endl;
-  cout<<b->getID()<<endl;
-  cout << "Hello World!\n";
+
+int main(){
+  Board *b = new Board;
+  Board *b_final = new Board;
+  b->setObstacle(3, 0);
+  b->setObstacle(0, 1);
+  b->setObstacle(2, 2);
+
+  b_final->setObstacle(3, 0);
+  b_final->setObstacle(0, 1);
+  b_final->setObstacle(2, 2);
 
 
-  // BFS();
+  vector<Car *>cars;
+  Car *c1 = new Car(2, 0, 'o', *b);
+  Car *c2 = new Car(1, 1, 'o', *b);
+  Car *c3 = new Car(2, 1, 'v', *b);
+
+  cars.push_back(c1);
+  cars.push_back(c2);
+  cars.push_back(c3);
   
-  char id = 2;
-  string temp = "TESTING: Το αυτοκίνητο με ID ";
-  temp.append(1, id+'0');
-  temp.append(" μετακινήθηκε προς τα πάνω και αφαιρέθηκε");
-  cout<<temp<<endl;
+  cout<<"===Describing the Problem:==="<<endl;
+  cout<<"The initial state:"<<endl;
+  b->printBoard();
+  cout<<"Car Details:"<<endl;
+  for (int i=0; i<cars.size();i++)
+    cout<<*cars[i];
+  cout<<endl;
+  cout<<"The goal state:"<<endl;
+  b_final->printBoard();
+  cout<<endl;
+
+  Game *initial = new Game(b, cars);
+  initial->setPrevious(nullptr);
+  vector<Car *>cars_empty;
+  Game *goal = new Game(b_final, cars_empty);
+
+  Game *solution;
+  long long mem,examined;
+  solution = BFS(initial, goal, mem, examined);
+
+  cout<<"===Solution:==="<<endl;
+  if(solution!=nullptr){
+    cout<<"Solution found!"<<endl;
+    cout<<"depth = "<<solution->getDepth()<<", Mem: "<<mem<<", Examined: "<<examined<<endl;
+    cout<<"The solution in detail:"<<endl;
+    Game *g = solution;
+    string solution_instructions[solution->getDepth()];
+    int i=solution->getDepth();
+    while (g->getPrevious()!=nullptr)
+    {
+      g=g->getPrevious();
+      solution_instructions[--i] = g->getAction();
+    }
+    for (int i=0; i<solution->getDepth(); i++)
+      cout<<i+1<<". "<<solution_instructions[i]<<endl;
+    
+  } else{
+    cout<<"Non solvable!";
+  }
+
+  cout<<endl<<"Finished!"<<endl;
+
+  
+  return 0;
 }
