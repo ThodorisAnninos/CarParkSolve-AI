@@ -40,6 +40,14 @@ bool Board::hasCar(int x, int y){
   return board[y][x] != 0 && board[y][x] != -1;
 }
 
+void Board::getGoalBoard(char board[MAX_HEIGHT][MAX_WIDTH], char goal[MAX_HEIGHT][MAX_WIDTH]){
+  for (int i=0; i<MAX_HEIGHT; i++){
+    for (int j=0; j<MAX_WIDTH; j++){
+      goal[i][j] = board[i][j] > 0 ? 0 : board[i][j];
+    }
+  }
+}
+
 
 void Board::printBoard(){
   for (int i=0; i<MAX_HEIGHT; i++){

@@ -15,6 +15,8 @@ class Board{
 
     void setBoard(char objs[MAX_HEIGHT][MAX_WIDTH]);
     char *getBoard();
+
+    static void getGoalBoard(char board[MAX_HEIGHT][MAX_WIDTH], char goal[MAX_HEIGHT][MAX_WIDTH]);
     
     void setObstacle(int x, int y);
     void addCarByID(int x, int y, int ID);

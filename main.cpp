@@ -49,9 +49,8 @@ int main(){
   b->setObstacle(0, 1);
   b->setObstacle(2, 2);
 
-  b_final->setObstacle(3, 0);
-  b_final->setObstacle(0, 1);
-  b_final->setObstacle(2, 2);
+
+  Board::getGoalBoard(b->board, b_final->board);
 
 
   vector<Car *>cars;
@@ -121,13 +120,7 @@ int main(){
 //   b->setObstacle(9, 8);
 
 
-//   b_final->setObstacle(1, 1);
-//   b_final->setObstacle(2, 4);
-//   b_final->setObstacle(4, 6);
-//   b_final->setObstacle(7, 3);
-//   b_final->setObstacle(9, 2);
-//   b_final->setObstacle(9, 8);
-
+//   Board::getGoalBoard(b->board, b_final->board);
 
 
 //   vector<Car *>cars;
@@ -216,15 +209,7 @@ int main(){
 //   b->setObstacle(9, 2);
 //   b->setObstacle(9, 8);
 
-
-//   b_final->setObstacle(1, 1);
-//   b_final->setObstacle(2, 4);
-//   b_final->setObstacle(4, 6);
-//   b_final->setObstacle(7, 3);
-//   b_final->setObstacle(9, 2);
-//   b_final->setObstacle(9, 8);
-
-
+//   Board::getGoalBoard(b->board, b_final->board);
 
 //   vector<Car *>cars;
 //   Car *c1 = new Car(1, 3, 'v', *b);
