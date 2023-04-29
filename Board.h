@@ -1,11 +1,11 @@
 #ifndef BOARD_H
 #define BOARD_H
 
+// #define MAX_WIDTH 12
+// #define MAX_HEIGHT 10
+
 #define MAX_WIDTH 4
 #define MAX_HEIGHT 3
-
-// #define MAX_WIDTH 10
-// #define MAX_HEIGHT 12
 
 class Board{
   public:

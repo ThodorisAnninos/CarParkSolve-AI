@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+#include <sstream>
 using namespace std;
 
 Game::Game(){
@@ -85,10 +86,9 @@ vector <Game *> Game::expand(){
     if (cars[i]->goUp(this->board)){
       child->removeCar(cars[i]);
       children.push_back(child);
-      string temp = "Το αυτοκίνητο με ID ";
-      temp.append(1, cars[i]->getID()+'0');
-      temp.append(" μετακινήθηκε προς τα πάνω και αφαιρέθηκε!");
-      setAction(temp);
+      stringstream stream;
+      stream<<"Το αυτοκίνητο με ID "<<cars[i]->getID()<<" μετακινήθηκε προς τα πάνω και αφαιρέθηκε!";
+      child->setAction(stream.str());
       child->setPrevious(this);
     } else {
       delete child;
@@ -98,10 +98,9 @@ vector <Game *> Game::expand(){
     if (cars[i]->goDown(this->board)){
       child->removeCar(cars[i]);
       children.push_back(child);
-      string temp = "Το αυτοκίνητο με ID ";
-      temp.append(1, cars[i]->getID()+'0');
-      temp.append(" μετακινήθηκε προς τα κάτω και αφαιρέθηκε!");
-      setAction(temp);
+      stringstream stream;
+      stream<<"Το αυτοκίνητο με ID "<<cars[i]->getID()<<" μετακινήθηκε προς τα κάτω και αφαιρέθηκε!";
+      child->setAction(stream.str());
       child->setPrevious(this);
     } else {
       delete child;
@@ -111,10 +110,9 @@ vector <Game *> Game::expand(){
     if (cars[i]->goLeft(this->board)){
       child->removeCar(cars[i]);
       children.push_back(child);
-      string temp = "Το αυτοκίνητο με ID ";
-      temp.append(1, cars[i]->getID()+'0');
-      temp.append(" μετακινήθηκε προς τα αριστερά και αφαιρέθηκε!");
-      setAction(temp);
+      stringstream stream;
+      stream<<"Το αυτοκίνητο με ID "<<cars[i]->getID()<<" μετακινήθηκε προς τα αριστερά και αφαιρέθηκε!";
+      child->setAction(stream.str());
       child->setPrevious(this);
     } else {
       delete child;
@@ -124,10 +122,9 @@ vector <Game *> Game::expand(){
     if (cars[i]->goRight(this->board)){
       child->removeCar(cars[i]);
       children.push_back(child);
-      string temp = "Το αυτοκίνητο με ID ";
-      temp.append(1, cars[i]->getID()+'0');
-      temp.append(" μετακινήθηκε προς τα δεξιά και αφαιρέθηκε!");
-      setAction(temp);
+      stringstream stream;
+      stream<<"Το αυτοκίνητο με ID "<<cars[i]->getID()<<" μετακινήθηκε προς τα δεξιά και αφαιρέθηκε!";
+      child->setAction(stream.str());
       child->setPrevious(this);
     } else {
       delete child;

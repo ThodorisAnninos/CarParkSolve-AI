@@ -1,5 +1,6 @@
 #include "Board.h"
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -43,13 +44,13 @@ bool Board::hasCar(int x, int y){
 void Board::printBoard(){
   for (int i=0; i<MAX_HEIGHT; i++){
     for (int j=0; j<MAX_WIDTH; j++){
-      char c;
-      switch(c=board[i][j]){
-        case -1: c='X'; break;
-        case 0: c=' '; break;
-        default: c=board[i][j]+'0'; break;
+      stringstream c;
+      switch(board[i][j]){
+        case -1: c<<'X'; break;
+        case 0: c<<' '; break;
+        default: c<<(int)board[i][j]; break;
       }
-      cout<<"|\t"<<c<<"\t";
+      cout<<"|\t"<<c.str()<<"\t";
     }
   cout<<"|"<<endl;
   }
